@@ -60,8 +60,11 @@ if (hero) {
         setTimeout(function () {
             index++
             if (index >= images.length) index = 0
+            hero.onload = function () {
+                updateSize()
+                hero.style.opacity = 1
+            }
             hero.src = images[index]
-            hero.style.opacity = 1
         }, 1100)
     }, 4000)
 }
