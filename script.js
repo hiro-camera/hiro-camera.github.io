@@ -1,36 +1,17 @@
 const images = [
-    "images/photo30.jpg",
-    "images/photo31.jpg",
-    "images/photo32.jpg",
-    "images/photo33.jpg",
-    "images/photo34.jpg",
-    "images/photo35.jpg",
-    "images/photo36.jpg",
-    "images/photo37.jpg",
-    "images/photo38.jpg",
-    "images/photo39.jpg",
-    "images/photo40.jpg",
-    "images/photo41.jpg",
-    "images/photo42.jpg",
-    "images/photo43.jpg",
-    "images/photo44.jpg",
-    "images/photo45.jpg",
-    "images/photo46.jpg",
-    "images/photo47.jpg",
-    "images/photo49.jpg",
-    "images/photo50.jpg",
-    "images/photo51.jpg",
-    "images/photo52.jpg",
-    "images/photo53.jpg",
-    "images/photo54.jpg",
-    "images/photo55.jpg",
-    "images/photo56.jpg",
-    "images/photo57.jpg",
-    "images/photo58.jpg",
-    "images/photo59.jpg",
-    "images/photo60.jpg",
-    "images/photo61.jpg",
-    "images/photo62.jpg",
+    "images/wedding/photo1.jpg",
+    "images/wedding/photo2.jpg",
+    "images/wedding/photo3.jpg",
+    "images/portrait/photo1.jpg",
+    "images/portrait/photo2.jpg",
+    "images/portrait/photo3.jpg",
+    "images/portrait/photo4.jpg",
+    "images/portrait/photo5.jpg",
+    "images/live/photo1.jpg",
+    "images/live/photo2.jpg",
+    "images/live/photo3.jpg",
+    "images/live/photo4.jpg",
+    "images/live/photo5.jpg",
 ]
 
 let index = Math.floor(Math.random() * images.length)
@@ -46,7 +27,7 @@ if (hero) {
     function updateSize() {
         const isLandscape = hero.naturalWidth > hero.naturalHeight
         if (isMobile()) {
-            hero.style.width = isLandscape ? "85%" : "90%"
+            hero.style.width = isLandscape ? "85%" : "65%"
         } else {
             hero.style.width = isLandscape ? "70%" : "40%"
         }
@@ -103,9 +84,19 @@ const observer = new IntersectionObserver((entries) => {
             const i = imgs.indexOf(entry.target)
             setTimeout(() => {
                 entry.target.classList.add("visible")
-            }, i * 100) // 順番にずらす
+            }, i * 100)
         }
     })
-}, { threshold: 0.1 })
+}, { threshold: 0.1, rootMargin: "0px 0px -10px 0px" })
+
+// ページ読み込み時にすでに見えている画像を即表示
+galleryImgs.forEach((img, i) => {
+    const rect = img.getBoundingClientRect()
+    if (rect.top < window.innerHeight) {
+        setTimeout(() => {
+            img.classList.add("visible")
+        }, i * 100)
+    }
+})
 
 galleryImgs.forEach(img => observer.observe(img))
